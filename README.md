@@ -1,11 +1,14 @@
 ObjectPath
 ==========
 
-[![Downloads](https://img.shields.io/pypi/dm/objectpath.svg)](https://pypi.python.org/pypi/objectpath/)
-<!--[![License](https://img.shields.io/pypi/l/objectpath.svg)](https://pypi.python.org/pypi/objectpath/)-->
-[![Build Status](https://travis-ci.org/adriank/ObjectPath.svg?branch=master)](https://travis-ci.org/adriank/ObjectPath)
-[![Code Health](https://landscape.io/github/adriank/ObjectPath/master/landscape.png)](https://landscape.io/github/adriank/ObjectPath/master)
-[![Coverage Status](https://coveralls.io/repos/adriank/ObjectPath/badge.png?branch=master)](https://coveralls.io/r/adriank/ObjectPath?branch=master)
+[Fork and packaging notice]
+---------------------------
+
+This fork exists solely to publish installable packages to PyPI under `tha-objectpath` for the original ObjectPath project, which no longer publishes releases. It aims to provide packaging and distribution only; it does not attempt full-featured development or ongoing maintenance of the codebase. Upstream development remains with the original project by Adrian Kalbarczyk.
+
+[![PyPI - Version](https://img.shields.io/pypi/v/tha-objectpath.svg)](https://pypi.org/project/tha-objectpath/)
+[![PyPI - Downloads](https://img.shields.io/pypi/dm/tha-objectpath.svg)](https://pypi.org/project/tha-objectpath/)
+[![CI](https://github.com/thabiger/ObjectPath/actions/workflows/ci.yml/badge.svg)](https://github.com/thabiger/ObjectPath/actions/workflows/ci.yml)
 
 The agile NoSQL query language for semi-structured data
 -----------------------------------------------
@@ -36,7 +39,7 @@ Command line usage
 -----
 
 `````sh
-$ sudo pip install objectpath
+$ sudo pip install tha-objectpath
 $ objectpath file.json
 `````
 or
@@ -50,7 +53,7 @@ Python usage
 ----------------
 
 `````sh
-$ sudo pip install objectpath
+$ sudo pip install tha-objectpath
 $ python
 >>> from objectpath import *
 >>> tree=Tree({"a":1})
@@ -69,6 +72,22 @@ $ python
 1
 >>>
 `````
+
+CI/CD Configuration
+-------------------
+
+The CI pipeline includes quality checks (black, isort, flake8, mypy) and security scans (safety, bandit). You can disable these jobs using GitHub repository variables:
+
+**To skip quality checks:**
+1. Go to your repository → Settings → Secrets and variables → Actions
+2. Click "Variables" tab → "New repository variable"
+3. Name: `SKIP_QUALITY`, Value: `true`
+4. The quality checks job will be skipped in all CI runs
+
+**To skip security scans:**
+1. Follow the same steps as above
+2. Name: `SKIP_SECURITY`, Value: `true`
+3. The security scans job will be skipped in all CI runs
 
 Contributing & bugs
 -------------------

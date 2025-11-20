@@ -1,0 +1,64 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tha-objectpath"
+version = "0.6.3"
+description = "The agile query language for semi-structured data. #JSON"
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "MIT License" }
+
+# Original author (preserved)
+authors = [
+  { name = "Adrian Kalbarczyk", email = "adrian.kalbarczyk@gmail.com" }
+]
+
+# Maintainer of this fork
+maintainers = [
+  { name = "Tomasz Habiger", email = "tomasz.habiger@gmail.com" }
+]
+
+keywords = ["query", "tree", "JSON", "nested structures"]
+classifiers = [
+  "Development Status :: 6 - Mature",
+  "Intended Audience :: Developers",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python",
+  "Topic :: Software Development :: Libraries :: Python Modules"
+]
+
+# Keep imports as `objectpath`
+dependencies = [
+    "pytz>=2025.2",
+]
+
+[project.scripts]
+objectpath = "objectpath.shell:main"
+
+[project.urls]
+Homepage = "https://adriank.github.io/ObjectPath"
+Upstream = "https://github.com/adriank/ObjectPath"
+Fork = "https://github.com/thabiger/ObjectPath"
+
+[tool.setuptools.packages.find]
+include = ["objectpath*"]
+
+[tool.bumpver]
+current_version = "0.6.3"
+version_pattern = "MAJOR.MINOR.PATCH"
+commit_message = "bump: version {old_version} → {new_version}"
+tag_message = "Release {new_version}"
+tag_name = "v{new_version}"
+commit = true
+tag = true
+push = false
+allow_dirty = false
+
+[tool.bumpver.file_patterns]
+"pyproject.toml" = [
+    'current_version = "{version}"',
+	'version = "{version}"'
+]
