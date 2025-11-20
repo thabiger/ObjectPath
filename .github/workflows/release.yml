@@ -1,0 +1,66 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag/version to release'
+        required: false
+        type: string
+  workflow_run:
+    workflows: ["Bump Version"]
+    types:
+      - completed
+    branches:
+      - develop
+  push:
+    tags:
+      - "*.*.*"
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.tag || github.ref }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - uses: astral-sh/setup-uv@v4
+
+      - name: Build distributions
+        run: uv build
+
+      - name: Validate package metadata (twine check)
+        run: uvx twine check dist/*
+
+      - name: Show package metadata
+        run: |
+          python - <<'PY'
+          import tomllib, sys
+          data = tomllib.load(open('pyproject.toml','rb'))
+          print(f"Package: {data['project']['name']}")
+          print(f"Version: {data['project']['version']}")
+          PY
+
+      - name: Create virtual environment
+        run: uv venv --seed
+
+      - name: Sanity test the built wheel
+        run: |
+          # Install the wheel using uv pip (should detect .venv automatically)
+          # Use --no-build-isolation to prevent rebuilding from source
+          uv pip install --no-build-isolation dist/*.whl
+          # Run tests
+          .venv/bin/python -m unittest discover -s tests -v
+
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          password: ${{ secrets.PYPI_API_TOKEN }}
+          packages-dir: dist
+
+
