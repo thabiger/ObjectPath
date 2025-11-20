@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "tha-objectpath"
-version = "0.6.10"
+version = "0.7.0"
 description = "The agile query language for semi-structured data. #JSON"
 readme = "README.md"
 requires-python = ">=3.12"
@@ -47,7 +47,7 @@ Fork = "https://github.com/thabiger/ObjectPath"
 include = ["objectpath*"]
 
 [tool.bumpver]
-current_version = "0.6.10"
+current_version = "0.7.0"
 version_pattern = "MAJOR.MINOR.PATCH"
 commit_message = "bump: version {old_version} → {new_version}"
 tag_message = "Release {new_version}"
